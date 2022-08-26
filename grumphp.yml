@@ -1,0 +1,71 @@
+
+parameters:
+    convention.EXEC_GRUMPHP_COMMAND: 'docker-compose --env-file .env.test -f docker-compose.yml -f docker-compose.test.yml exec -T php'
+    convention.gitlab_lint.api_token: 'MY TOKEN'
+    convention.doctrine_schema_check.command: './bin/console doctrine:schema:validate --skip-sync'
+
+grumphp:
+
+    git_hook_variables:
+        EXEC_GRUMPHP_COMMAND: '%convention.EXEC_GRUMPHP_COMMAND%'
+    stop_on_failure: true
+
+    tasks:
+        composer: null
+        composer_normalize: null
+        composer_require_checker: ~
+        #deptrac: ~
+        doctrine_schema_check:
+            scripts: [ [ '-c', '%convention.doctrine_schema_check.command%' ] ]
+            triggered_by: [ xml, yaml, php ]
+            metadata: { task: shell }
+        ecs:
+            config: ecs.php
+        git_blacklist:
+            keywords: [ 'die\\(', 'dd\\(', 'dump\\(', 'var_dump\\(', 'exit;' ]
+        git_branch_name:
+            blacklist: [ master, main ]
+            #whitelist:
+            #    - "/JIRA-\d+/"
+        git_commit_message: ~
+        gitlab_lint:
+            api_token: '%convention.gitlab_lint.api_token%'
+        phpstan:
+            configuration: phpstan.neon
+            use_grumphp_paths: false # Might want to remove this after testing is finished, to speed up processing
+        phpunitbridge:
+            testsuite: Unit
+        phpunitbridge_all:
+            metadata: { task: phpunitbridge }
+        symfony_lint_twig:
+            scripts: [["-c", "./bin/console lint:twig templates"]]
+            triggered_by: [ twig ]
+            metadata: { task: shell }
+        symfony_lint_yaml:
+            scripts: [[ "-c", "./bin/console lint:yaml src config tests translations" ]]
+            triggered_by: [ yaml ]
+            metadata: { task: shell }
+
+    extensions:
+        - Headsnet\GrumPHP\GitlabLint\Loader
+
+    testsuites:
+        git_commit_msg:
+            tasks:
+                - git_commit_message
+        git_pre_commit:
+            tasks:
+                - composer
+                - composer_normalize
+                - ecs
+                - git_branch_name
+                - gitlab_lint
+                - phpstan
+                - phpunitbridge
+                - symfony_lint_twig
+                - symfony_lint_yaml
+        my_pre_push:
+            tasks:
+                #- deptrac
+                - doctrine_schema_check
+                - phpunitbridge_all

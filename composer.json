@@ -1,0 +1,15 @@
+{
+    "name": "headsnet/grumphp-conventions",
+    "description": "Centralised GrumPHP configuration used by Headsnet projects",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {
+        "headsnet/grumphp-gitlab-lint": "^0.1.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp": true
+        }
+    }
+}
