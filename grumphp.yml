@@ -1,7 +1,7 @@
 
 parameters:
     convention.EXEC_GRUMPHP_COMMAND: 'docker-compose --env-file .env.test -f docker-compose.yml -f docker-compose.test.yml exec -T php'
-    convention.git_blacklist.keywords: 'die\\(', 'dd\\(', 'dump\\(', 'var_dump\\(', 'exit;'
+    convention.git_blacklist.keywords: [ 'die\\(', 'dd\\(', 'dump\\(', 'var_dump\\(', 'exit;' ]
     convention.git_branch_name.blacklist: [ master, main ]
     convention.gitlab_lint.api_token: 'MY TOKEN'
     convention.doctrine_schema_check.command: './bin/console doctrine:schema:validate --skip-sync'
@@ -24,7 +24,7 @@ grumphp:
         ecs:
             config: ecs.php
         git_blacklist:
-            keywords: [ '%convention.git_blacklist.keywords%' ]
+            keywords: '%convention.git_blacklist.keywords%'
         git_branch_name:
             blacklist: '%convention.git_branch_name.blacklist%'
             #whitelist:
