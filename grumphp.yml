@@ -1,77 +1,15 @@
 
-parameters:
-    convention.EXEC_GRUMPHP_COMMAND: 'docker run -i --rm --name my-running-script -v "$PWD":/app -w /app php:8.1-cli'
-    convention.git_blacklist.keywords: [ 'die\\(', 'dd\\(', 'dump\\(', 'var_dump\\(', 'exit;' ]
-    convention.git_branch_name.blacklist: [ master, main ]
-    convention.gitlab_lint.api_token: 'MY TOKEN'
-    convention.doctrine_schema_check.command: './bin/console doctrine:schema:validate --skip-sync'
-
 grumphp:
 
     git_hook_variables:
-        EXEC_GRUMPHP_COMMAND: '%convention.EXEC_GRUMPHP_COMMAND%'
+        EXEC_GRUMPHP_COMMAND: 'docker run -i --rm --name my-running-script -v "$PWD":/app -w /app php:8.1-cli'
     stop_on_failure: true
 
     tasks:
         composer: ~      # Runs "composer validate" to check the file when it's been changed
         composer_normalize: ~
-        composer_require_checker: ~
-        #deptrac: ~
-        doctrine_schema_check:
-            scripts: [ [ '-c', '%convention.doctrine_schema_check.command%' ] ]
-            triggered_by: [ xml, yaml, php ]
-            metadata: { task: shell }
-        ecs:
-            config: ecs.php
         git_blacklist:
-            keywords: '%convention.git_blacklist.keywords%'
+            keywords: [ 'die\\(', 'dd\\(', 'dump\\(', 'var_dump\\(', 'exit;' ]
         git_branch_name:
-            blacklist: '%convention.git_branch_name.blacklist%'
-            #whitelist:
-            #    - "/JIRA-\d+/"
+            blacklist: [ master, main ]
         git_commit_message: ~
-        gitlab_lint:
-            api_token: '%convention.gitlab_lint.api_token%'
-        lint_twig:
-            scripts: [["-c", "./bin/console lint:twig templates"]]
-            triggered_by: [ twig ]
-            metadata: { task: shell }
-        lint_yaml:
-            scripts: [[ "-c", "./bin/console lint:yaml src config tests translations" ]]
-            triggered_by: [ yaml ]
-            metadata: { task: shell }
-        phpstan:
-            configuration: phpstan.neon
-        phpstan_all:
-            configuration: phpstan.neon
-            use_grumphp_paths: false
-            metadata: { task: phpstan }
-        phpunitbridge:
-            testsuite: Unit
-        phpunitbridge_all:
-            metadata: { task: phpunitbridge }
-
-    extensions:
-        - Headsnet\GrumPHP\GitlabLint\Loader
-
-    testsuites:
-        git_commit_msg:
-            tasks:
-                - git_commit_message
-        git_pre_commit:
-            tasks:
-                - git_branch_name # This should go first for maximum fail-fast
-                - ecs
-                - phpstan
-                - phpunitbridge
-                - composer
-                - composer_normalize
-                - lint_twig
-                - lint_yaml
-        my_pre_push:
-            tasks:
-                - phpstan_all
-                - gitlab_lint
-                - doctrine_schema_check
-                #- deptrac
-                - phpunitbridge_all
