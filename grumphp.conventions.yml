@@ -37,8 +37,8 @@ grumphp:
             triggered_by: [ twig ]
             metadata: { task: shell }
         lint_yaml:
-            scripts: [[ "-c", "./bin/console lint:yaml src config tests translations" ]]
-            triggered_by: [ yaml ]
+            scripts: [[ "-c", "./bin/console lint:yaml --parse-tags src config tests translations" ]]
+            triggered_by: [ yaml, yml ]
             metadata: { task: shell }
         phpstan:
             configuration: phpstan.neon

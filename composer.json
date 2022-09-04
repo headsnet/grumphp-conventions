@@ -5,7 +5,10 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "headsnet/grumphp-gitlab-lint": "^0.1.0"
+        "headsnet/grumphp-gitlab-lint": "^0.1.0",
+        "ergebnis/composer-normalize": "^2.2",
+        "icanhazstring/composer-unused": "^0.7",
+        "maglnet/composer-require-checker": "^3.8"
     },
     "config": {
         "allow-plugins": {
