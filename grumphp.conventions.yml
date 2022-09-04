@@ -5,6 +5,8 @@ parameters:
     convention.git_branch_name.blacklist: [ master, main ]
     convention.gitlab_lint.api_token: 'MY TOKEN'
     convention.doctrine_schema_check.command: './bin/console doctrine:schema:validate --skip-sync'
+    convention.lint_twig.command: './bin/console lint:twig templates'
+    convention.lint_yaml.command: './bin/console lint:yaml --parse-tags src config tests translations'
 
 grumphp:
 
@@ -33,11 +35,11 @@ grumphp:
         gitlab_lint:
             api_token: '%convention.gitlab_lint.api_token%'
         lint_twig:
-            scripts: [["-c", "./bin/console lint:twig templates"]]
+            scripts: [["-c", '%convention.lint_twig.command%']]
             triggered_by: [ twig ]
             metadata: { task: shell }
         lint_yaml:
-            scripts: [[ "-c", "./bin/console lint:yaml --parse-tags src config tests translations" ]]
+            scripts: [[ "-c", '%convention.lint_yaml.command%' ]]
             triggered_by: [ yaml, yml ]
             metadata: { task: shell }
         phpstan:
