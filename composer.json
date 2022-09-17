@@ -8,7 +8,6 @@
         "phpro/grumphp": "^1.13",
         "headsnet/grumphp-gitlab-lint": "^0.1.0",
         "ergebnis/composer-normalize": "^2.2",
-        "composer-unused/composer-unused-plugin": "^0.8.1",
         "maglnet/composer-require-checker": "^3.8"
     },
     "config": {
