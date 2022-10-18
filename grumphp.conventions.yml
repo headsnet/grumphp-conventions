@@ -17,7 +17,8 @@ grumphp:
     tasks:
         composer: ~      # Runs "composer validate" to check the file when it's been changed
         composer_normalize: ~
-        composer_require_checker: ~
+        composer_require_checker:
+            ignore_parse_errors: true
         #deptrac: ~
         doctrine_schema_check:
             scripts: [ [ '-c', '%convention.doctrine_schema_check.command%' ] ]
