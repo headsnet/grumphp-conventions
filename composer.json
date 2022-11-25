@@ -7,12 +7,12 @@
     "require": {
         "phpro/grumphp": "^1.13",
         "headsnet/grumphp-gitlab-lint": "^0.1.0",
-        "ergebnis/composer-normalize": "^2.2",
-        "maglnet/composer-require-checker": "^3.8"
+        "ergebnis/composer-normalize": "^2.2"
     },
     "config": {
         "allow-plugins": {
-            "phpro/grumphp": true
+            "phpro/grumphp": true,
+            "ergebnis/composer-normalize": true
         }
     }
 }
