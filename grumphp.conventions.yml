@@ -29,7 +29,9 @@ grumphp:
             blacklist: '%convention.git_branch_name.blacklist%'
             #whitelist:
             #    - "/JIRA-\d+/"
-        git_commit_message: ~
+        git_commit_message:
+            max_subject_width: 72 # The old-school convention of 65 characters is way too limited
+            max_body_width: 72
         gitlab_lint:
             api_token: '%convention.gitlab_lint.api_token%'
         lint_twig:
