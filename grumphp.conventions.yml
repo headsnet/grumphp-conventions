@@ -48,11 +48,11 @@ grumphp:
             configuration: phpstan.neon
             use_grumphp_paths: false
             metadata: { task: phpstan }
-        phpunitbridge:
+        phpunit:
             testsuite: Unit
-        phpunitbridge_all:
+        phpunit_all:
             testsuite: Unit,Integration
-            metadata: { task: phpunitbridge }
+            metadata: { task: paratest }
 
     extensions:
         - Headsnet\GrumPHP\GitlabLint\Loader
