@@ -67,7 +67,7 @@ grumphp:
                 - git_blacklist
                 - ecs
                 - phpstan
-                - phpunitbridge
+                - phpunit
                 - composer
                 - composer_normalize
                 - lint_twig
@@ -75,6 +75,6 @@ grumphp:
                 - gitlab_lint
         my_pre_push:
             tasks:
-                - phpunitbridge_all
+                - phpunit_all
                 - doctrine_schema_check
                 - phpstan_all
