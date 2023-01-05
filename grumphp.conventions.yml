@@ -14,6 +14,11 @@ grumphp:
         EXEC_GRUMPHP_COMMAND: '%convention.EXEC_GRUMPHP_COMMAND%'
     stop_on_failure: true
 
+    # Disable the ASCII artwork that takes up too much space in the console output
+    ascii:
+        failed: ~
+        succeeded: ~
+
     tasks:
         composer: ~      # Runs "composer validate" to check the file when it's been changed
         composer_normalize: ~
