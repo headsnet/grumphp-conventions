@@ -83,3 +83,7 @@ grumphp:
                 - phpunit_all
                 - doctrine_schema_check
                 - phpstan_all
+
+    fixer:
+        enabled: true
+        fix_by_default: true
