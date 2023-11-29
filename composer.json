@@ -5,7 +5,7 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "phpro/grumphp": "^1.13",
+        "phpro/grumphp": "^2.3",
         "headsnet/grumphp-gitlab-lint": "^0.1.0",
         "ergebnis/composer-normalize": "^2.2"
     },
