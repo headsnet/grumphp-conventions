@@ -3,6 +3,7 @@ parameters:
     convention.EXEC_GRUMPHP_COMMAND: 'docker run -i --rm --name my-running-script -v "$PWD":/app -w /app php:8.1-cli'
     convention.git_blacklist.keywords: [ 'die\\(', 'dd\\(', 'dump\\(', 'var_dump\\(', 'exit;' ]
     convention.git_branch_name.blacklist: [ master, main ]
+    convention.git_branch_name.whitelist: [ ]
     convention.gitlab_lint.api_token: 'MY TOKEN'
     convention.gitlab_lint.gitlab_url: 'gitlab.com/api/v4/projects/:id'
     convention.gitlab_lint.gitlab_file: '.gitlab-ci.yml'
@@ -34,8 +35,7 @@ grumphp:
             keywords: '%convention.git_blacklist.keywords%'
         git_branch_name:
             blacklist: '%convention.git_branch_name.blacklist%'
-            #whitelist:
-            #    - "/JIRA-\d+/"
+            whitelist: '%convention.git_branch_name.whitelist%'
         git_commit_message:
             max_subject_width: 72 # The old-school convention of 65 characters is way too limited
             max_body_width: 72
