@@ -6,8 +6,10 @@
     "minimum-stability": "stable",
     "require": {
         "phpro/grumphp": "^2.5",
-        "headsnet/grumphp-gitlab-lint": "^0.1.0",
         "ergebnis/composer-normalize": "^2.2"
+    },
+    "suggest": {
+        "headsnet/grumphp-gitlab-lint": "^0.1.0"
     },
     "config": {
         "allow-plugins": {

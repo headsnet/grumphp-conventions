@@ -4,9 +4,6 @@ parameters:
     convention.git_blacklist.keywords: [ 'die\\(', 'dd\\(', 'dump\\(', 'var_dump\\(', 'exit;' ]
     convention.git_branch_name.blacklist: [ master, main ]
     convention.git_branch_name.whitelist: [ ]
-    convention.gitlab_lint.api_token: 'MY TOKEN'
-    convention.gitlab_lint.gitlab_url: 'gitlab.com/api/v4/projects/:id'
-    convention.gitlab_lint.gitlab_file: '.gitlab-ci.yml'
     convention.doctrine_schema_check.command: './bin/console doctrine:schema:validate --skip-sync'
     convention.lint_twig.command: './bin/console lint:twig templates'
     convention.lint_yaml.command: './bin/console lint:yaml --parse-tags src config tests translations'
@@ -39,10 +36,6 @@ grumphp:
         git_commit_message:
             max_subject_width: 72 # The old-school convention of 65 characters is way too limited
             max_body_width: 72
-        gitlab_lint:
-            api_token: '%convention.gitlab_lint.api_token%'
-            gitlab_url: '%convention.gitlab_lint.gitlab_url%'
-            gitlab_file: '%convention.gitlab_lint.gitlab_file%'
         lint_twig:
             scripts: [["-c", '%convention.lint_twig.command%']]
             triggered_by: [ twig ]
@@ -63,9 +56,6 @@ grumphp:
             testsuite: Unit,Integration
             metadata: { task: paratest }
 
-    extensions:
-        - Headsnet\GrumPHP\GitlabLint\Loader
-
     testsuites:
         git_commit_msg:
             tasks:
@@ -81,7 +71,6 @@ grumphp:
                 - composer_normalize
                 - lint_twig
                 - lint_yaml
-                - gitlab_lint
         my_pre_push:
             tasks:
                 - phpunit_all
