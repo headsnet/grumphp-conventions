@@ -1,12 +1,14 @@
 
 parameters:
     convention.EXEC_GRUMPHP_COMMAND: 'docker run -i --rm --name my-running-script -v "$PWD":/app -w /app php:8.1-cli'
+    convention.ecs.config: ecs.php
     convention.git_blacklist.keywords: [ 'die\\(', 'dd\\(', 'dump\\(', 'var_dump\\(', 'exit;' ]
     convention.git_branch_name.blacklist: [ master, main ]
     convention.git_branch_name.whitelist: [ ]
     convention.doctrine_schema_check.command: './bin/console doctrine:schema:validate --skip-sync'
     convention.lint_twig.command: './bin/console lint:twig templates'
     convention.lint_yaml.command: './bin/console lint:yaml --parse-tags src config tests translations'
+    convention.phpstan.config: phpstan.neon
 
 grumphp:
 
@@ -27,7 +29,7 @@ grumphp:
             triggered_by: [ xml, yaml, php ]
             metadata: { task: shell }
         ecs:
-            config: ecs.php
+            config: '%convention.ecs.config%'
         git_blacklist:
             keywords: '%convention.git_blacklist.keywords%'
         git_branch_name:
@@ -45,9 +47,9 @@ grumphp:
             triggered_by: [ yaml, yml ]
             metadata: { task: shell }
         phpstan:
-            configuration: phpstan.neon
+            configuration: '%convention.phpstan.config%'
         phpstan_all:
-            configuration: phpstan.neon
+            configuration: '%convention.phpstan.config%'
             use_grumphp_paths: false
             metadata: { task: phpstan }
         phpunit:
